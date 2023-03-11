@@ -17,6 +17,11 @@ const router = createRouter({
       name: "viewRepo",
       component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
     },
+    {
+      path: "/view-single/:id",
+      name: "repoData",
+      component: () => import("../pages/RepoData.vue"), //Implementing Lazy loading
+    },
   ],
 });
 

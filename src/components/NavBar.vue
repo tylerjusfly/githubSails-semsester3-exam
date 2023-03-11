@@ -5,13 +5,8 @@ import githubsvg from "../assets/github.svg";
 
 <template>
   <header class="text-white body-font border-b border-gray-200">
-    <div
-      class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
-    >
-      <RouterLink
-        to="/"
-        class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
-      >
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <RouterLink to="/" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -22,21 +17,16 @@ import githubsvg from "../assets/github.svg";
           class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
           viewBox="0 0 24 24"
         >
-          <path
-            d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-          ></path>
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
         </svg>
         <!-- <img :src="githubsvg" alt="githublogo" /> -->
         <span class="ml-3 text-xl">GITHUB SAILS</span>
       </RouterLink>
 
-      <nav
-        class="md:ml-auto flex flex-wrap items-center text-base justify-center"
-      >
-        <RouterLink to="/view-repo" class="mr-5 hover:text-indigo-400"
-          >View Repos</RouterLink
-        >
-        <a class="mr-5 hover:text-indigo-400">Second Link</a>
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <RouterLink to="/view-repo" class="mr-5 hover:text-indigo-400">View Repos</RouterLink>
+        <!-- <RouterLink :to="{ name: 'repoData', params: { id: '2222' } }" class="mr-5 hover:text-indigo-400">Sibgkr Repos</RouterLink> -->
+
         <a class="mr-5 hover:text-indigo-400">Third Link</a>
         <a class="mr-5 hover:text-indigo-400">Fourth Link</a>
       </nav>
