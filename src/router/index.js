@@ -15,13 +15,18 @@ const router = createRouter({
     {
       path: "/view-repo",
       name: "viewRepo",
-      component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
-    },
-    {
-      path: "/view-single/:id",
-      name: "repoData",
       component: () => import("../pages/RepoData.vue"), //Implementing Lazy loading
     },
+    // {
+    //   path: "/view-single/:id",
+    //   name: "singleData",
+    //   component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
+    // },
+    // {
+    //   path: "*",
+    //   name: "errorPage",
+    //   component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
+    // },
   ],
 });
 

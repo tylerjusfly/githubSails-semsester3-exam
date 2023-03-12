@@ -1,97 +1,71 @@
 <script setup>
-import Spinner from "../components/Spinner.vue";
-import { ref, onMounted, computed, onBeforeUpdate, onBeforeMount } from "vue";
-import { useRouter } from "vue-router";
-import { UseFetchGithubApi } from "../composables/UseFetchGithubApi";
+import cancel from "../assets/cancel.svg";
+import branching from "../assets/github-branch.svg";
+import forks from "../assets/fork.svg";
+import language from "../assets/language.svg";
+import link from "../assets/link.svg";
+
 import moment from "moment";
 
-// importing svgs
-import githubsvg from "../assets/github.svg";
-
-const name = ref("tylerjusfly");
-const router = useRouter();
-const { fetchData, USERNAME } = UseFetchGithubApi();
-
-const loading = ref(true);
-const repos = ref([]);
-const lengthOfRepo = ref();
-const PageSize = ref(10);
-
-const callGithubApi = async () => {
-  try {
-    // Set api response in variable
-    const result = await fetchData(name.value);
-    repos.value = result;
-    loading.value = false;
-    lengthOfRepo.value = result.length;
-    console.log(result.length);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-// LIFE CYCLE HOOKS STAYS HERE
-onBeforeMount(() => {});
-
-onMounted(() => {
-  if (loading.value) {
-    callGithubApi();
-  }
-});
-
-const pushh = (data) => {
-  router.push({ name: "repoData", params: { id: 2 } });
-};
-
-onBeforeUpdate(() => {
-  const totalPages = computed(() => Math.ceil(lengthOfRepo.value / PageSize.value));
-  console.log("before updated");
-
-  console.log("total pages:==>", totalPages.value);
+defineProps({
+  repository: Object,
+  toggle: Function,
 });
 </script>
 
 <template>
-  <section class="text-white body-font container px-2 py-10 mx-auto">
-    <h1 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1 text-center py-5">Repos for github {{ USERNAME }}</h1>
-    <Spinner v-if="loading" />
-    <div v-else class="flex flex-wrap -m-4">
-      <div class="p-4 md:w-1/3" v-for="item in repos" :key="item.id">
-        <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-white text-white flex-shrink-0">
-              <img :src="githubsvg" />
-            </div>
-            <h2 class="text-gray-900 text-lg title-font font-medium">
-              {{ item.name }}
-            </h2>
-          </div>
-          <div class="flex-grow">
-            <ul class="leading-relaxed text-base text-gray-900">
-              <li>Language : {{ item.language ?? "No Languages" }}</li>
-              <li>Clone Url : {{ item.clone_url.substring(0, 60) }}...</li>
-              <li>Created At : {{ moment(item.created_at).format("DD-MM-YYYY") }}</li>
+  <transition name="fade">
+    <div class="w-full max-w-2xl p-3 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+      <div>
+        <div class="text-center p-3 flex-auto justify-center leading-6 text-black">
+          <button @click="toggle({})">
+            <img :src="cancel" />
+          </button>
 
-              <!-- <li v-for="topic in item.topics" :key="topic">{{ topic }}</li> -->
-            </ul>
-            <a class="mt-3 text-indigo-500 inline-flex items-center" @click="pushh(item)"
-              >View More
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                class="w-4 h-4 ml-2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
+          <h3 class="text-2xl font-bold py-4">{{ repository.name }}</h3>
+
+          <span
+            class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 mt-4 rounded mr-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500"
+          >
+            <svg aria-hidden="true" class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            {{ moment(repository.created_at).format("MMMM d, YYYY") }}
+          </span>
+        </div>
+        <!-- Repo Details -->
+        <div class="text-black">
+          <span class="flex flex-row items-center">
+            <img :src="branching" width="40" />
+            <p class="blue">{{ repository.default_branch }}</p>
+          </span>
+          <span class="flex flex-row items-center">
+            <img :src="forks" width="40" />
+            <p class="blue">{{ repository.forks }}</p>
+          </span>
+          <span class="flex flex-row items-center">
+            <img :src="language" width="40" />
+            <p class="blue">{{ repository.language ?? "Language not specified" }}</p>
+          </span>
+          <span class="flex flex-row items-center">
+            <img :src="link" width="40" />
+            <a class="blue" :href="repository.clone_url" target="blank">{{ repository.clone_url }}</a>
+          </span>
         </div>
       </div>
-      <!-- ends -->
     </div>
-  </section>
+  </transition>
+
+  <!-- 
+    {{ repository.owner.avatar_url }}
+   
+  </h2>
+
+   -->
 </template>
+
+<style lang="scss" scoped></style>

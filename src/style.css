@@ -5,4 +5,14 @@
 :root {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  font-family: "Trebuchet MS", "Lucida Sans", Arial, sans-serif;
+}
+
+.blue {
+  color: rgb(99, 102, 241);
+  font-weight: 600;
+}
+
+.github-card__meta {
+  margin-right: 20px;
 }

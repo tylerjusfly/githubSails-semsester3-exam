@@ -1,8 +1,6 @@
 import { ref } from "vue";
 
 export const UseFetchGithubApi = () => {
-  const USERNAME = ref("tylerjusfly");
-
   const fetchData = async (username) => {
     const url = `https://api.github.com/users/${username}/repos`;
 
@@ -20,5 +18,5 @@ export const UseFetchGithubApi = () => {
     return response.json();
   };
 
-  return { fetchData, USERNAME };
+  return { fetchData };
 };
