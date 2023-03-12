@@ -5,7 +5,7 @@ import SingleRepo from "./SingleRepo.vue";
 import { ref, onMounted, computed, onBeforeUpdate, onBeforeMount } from "vue";
 import { UseFetchGithubApi } from "../composables/UseFetchGithubApi";
 
-const name = ref("micalevisk");
+const name = ref("tylerjusfly");
 const { fetchData } = UseFetchGithubApi();
 
 const loading = ref(true);
