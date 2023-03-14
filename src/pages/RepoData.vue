@@ -11,7 +11,6 @@ const { fetchData } = UseFetchGithubApi();
 const loading = ref(true);
 let repos = ref([]);
 const lengthOfRepo = ref();
-const PageSize = ref(10);
 
 const isSingleRepo = ref(false);
 const repository = ref({});
@@ -47,10 +46,6 @@ onMounted(() => {
 
 onBeforeUpdate(() => {
   repos.value = repos.value.slice().sort((a, b) => b.created_at.localeCompare(a.created_at));
-
-  const totalPages = computed(() => Math.ceil(lengthOfRepo.value / PageSize.value));
-
-  console.log("total pages:==>", totalPages.value);
 });
 </script>
 
