@@ -4,6 +4,7 @@ import AllRepos from "../components/AllRepos.vue";
 import SingleRepo from "./SingleRepo.vue";
 import { ref, onMounted, computed, onBeforeUpdate, onBeforeMount } from "vue";
 import { UseFetchGithubApi } from "../composables/UseFetchGithubApi";
+import { useClientPaginate } from "../composables/useClientPaginate";
 
 const name = ref("tylerjusfly");
 const { fetchData } = UseFetchGithubApi();
@@ -12,12 +13,16 @@ const loading = ref(true);
 let repos = ref([]);
 const lengthOfRepo = ref();
 
+const currentPage = ref(1);
+
+const { paginatedArray, numberOfPages } = useClientPaginate(repos.value, currentPage.value);
+
 const isSingleRepo = ref(false);
 const repository = ref({});
 
 const switchRepoView = (item) => {
   isSingleRepo.value = !isSingleRepo.value;
-  console.log("called");
+
   repository.value = item;
 };
 

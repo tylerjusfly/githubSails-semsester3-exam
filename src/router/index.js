@@ -17,16 +17,11 @@ const router = createRouter({
       name: "viewRepo",
       component: () => import("../pages/RepoData.vue"), //Implementing Lazy loading
     },
-    // {
-    //   path: "/view-single/:id",
-    //   name: "singleData",
-    //   component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
-    // },
-    // {
-    //   path: "*",
-    //   name: "errorPage",
-    //   component: () => import("../pages/SingleRepo.vue"), //Implementing Lazy loading
-    // },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "error",
+      component: () => import("../pages/Notfound.vue"), //Implementing Lazy loading
+    },
   ],
 });
 
