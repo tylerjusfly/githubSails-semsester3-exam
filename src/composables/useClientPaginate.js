@@ -1,13 +1,15 @@
 import { ref, computed } from "vue";
 
 export const useClientPaginate = (array, currentPage) => {
-  const PerPageSize = ref(10);
+  const pageSize = ref(9);
 
-  const paginatedArray = () => {
-    array.slice((currentPage - 1) * PerPageSize.value, currentPage * PerPageSize.value);
-  };
+  const totalPages = computed(() => Math.ceil(array.value.length / pageSize.value));
 
-  const numberOfPages = computed(() => Math.ceil((array.length || 0) / PerPageSize.value));
+  const paginatedData = computed(() => {
+    const start = (currentPage.value - 1) * pageSize.value;
+    const end = start + pageSize.value;
+    return array.value.slice(start, end);
+  });
 
-  return { paginatedArray, numberOfPages };
+  return { paginatedData, totalPages };
 };

@@ -1,18 +1,35 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps, toRefs } from "vue";
+import Pagination from "./Pagination.vue";
+import { useClientPaginate } from "../composables/useClientPaginate";
+
 // importing svgs
 import githubsvg from "../assets/github.svg";
 import moment from "moment";
 
-defineProps({
+const props = defineProps({
   repos: Array,
   toggle: Function,
 });
+
+const { repos } = toRefs(props);
+
+const currentPage = ref(1);
+
+const { paginatedData, totalPages } = useClientPaginate(repos, currentPage);
+
+const previousPage = () => {
+  currentPage.value--;
+};
+
+const nextPage = () => {
+  currentPage.value++;
+};
 </script>
 
 <template>
   <div class="flex flex-wrap -m-4">
-    <div class="p-4 md:w-1/3" v-for="item in repos" :key="item.id">
+    <div class="p-4 md:w-1/3" v-for="item in paginatedData" :key="item.id">
       <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
         <div class="flex items-center mb-3">
           <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-white text-white flex-shrink-0">
@@ -48,6 +65,7 @@ defineProps({
       </div>
     </div>
     <!-- ends -->
+    <Pagination :previous-page="previousPage" :currentPage="currentPage" :nextPage="nextPage" :pageSize="totalPages" />
   </div>
 </template>
 

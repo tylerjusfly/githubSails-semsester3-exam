@@ -2,20 +2,14 @@
 import Spinner from "../components/Spinner.vue";
 import AllRepos from "../components/AllRepos.vue";
 import SingleRepo from "./SingleRepo.vue";
-import { ref, onMounted, computed, onBeforeUpdate, onBeforeMount } from "vue";
+import { ref, onMounted, onBeforeUpdate, onBeforeMount } from "vue";
 import { UseFetchGithubApi } from "../composables/UseFetchGithubApi";
-import { useClientPaginate } from "../composables/useClientPaginate";
 
 const name = ref("tylerjusfly");
 const { fetchData } = UseFetchGithubApi();
 
 const loading = ref(true);
 let repos = ref([]);
-const lengthOfRepo = ref();
-
-const currentPage = ref(1);
-
-const { paginatedArray, numberOfPages } = useClientPaginate(repos.value, currentPage.value);
 
 const isSingleRepo = ref(false);
 const repository = ref({});
@@ -30,11 +24,8 @@ const callGithubApi = async () => {
   try {
     // Set api response in variable
     const result = await fetchData(name.value);
-    console.log(result);
     repos.value = result;
     loading.value = false;
-    lengthOfRepo.value = result.length;
-    console.log(result.length);
   } catch (error) {
     console.log(error.message);
   }
