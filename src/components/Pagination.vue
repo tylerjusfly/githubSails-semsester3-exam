@@ -24,7 +24,6 @@ defineProps({
   gap: 20px;
   margin-top: 20px;
 
-  vertical-align: middle;
   border-radius: 4px;
   padding: 1px 2px 4px 2px;
   border-top: 1px solid #aeaeae;
