@@ -6,8 +6,8 @@
           Alt School GitHub API <br class="hidden lg:inline-block" />
         </h1>
         <p class="mb-8 leading-relaxed">
-          Hello, My name is Taiwo Momoh. I'm a software developer currently in the software engineering field. My tech stack are nodeJs
-          [NestJs, ExpressJs], reactJs , vueJs
+          Hello, My name is Taiwo Momoh. I'm a software developer currently studying in the software engineering field of Alt-School. My
+          tech stack are nodeJs [NestJs, ExpressJs], reactJs , vueJs
         </p>
       </div>
       <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
